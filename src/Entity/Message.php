@@ -50,6 +50,12 @@ class Message
      */
     private $recipient;
 
+    /**
+     * 0 waiting, 1 queued, 2 failed, 3 sent
+     * @ORM\Column(type="integer")
+     */
+    private $status = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -87,6 +93,18 @@ class Message
     public function setRecipient(string $recipient): self
     {
         $this->recipient = $recipient;
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register!{% endblock %}
+
+{% block body %}
+    <div class="container pt-4">
+        <div class="row mx-0 justify-content-center">
+            <div class="col-sm col-md-6 col-lg-4 card p-4">
+                <h3 class="text-center mb-3">Register</h3>
+                {{ form(form) }}
+                <small>
+                    Already have an account?
+                    <a href="{{ path('app_login') }}">
+                        login
+                    </a>
+                </small>
+            </div>
+        </div>
+    </div>
+{% endblock %}
