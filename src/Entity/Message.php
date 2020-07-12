@@ -21,7 +21,13 @@ class Message
 
     /**
      * @ORM\Column(type="string", length=140)
-     * @Assert\NotBlank
+     * @Assert\NotBlank(
+     *     message = "Cannot send an empty text"
+     * )
+     * * @Assert\Length(
+     *     max = 140,
+     *     maxMessage = "Cannot be more than 140 characters"
+     * )
      */
     private $text;
 
@@ -32,7 +38,9 @@ class Message
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\NotBlank
+     * @Assert\NotBlank(
+     *     message = "Recipient's number must not be empty"
+     * )
      * @Assert\Length(
      *     min = 5,
      *     max = 50,

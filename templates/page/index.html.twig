@@ -4,10 +4,26 @@
 
 {% block body %}
     <div class="container">
-    <h1 class="text-center my-4 font-weight-light">Type a text message and send it now!</h1>
+    <h1 class="text-center my-4 font-weight-normal">MSGME</h1>
         <div class="row justify-content-center">
             <div class="col-4 card p-4">
-                {{ form(form) }}
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                    
+                    <h3 class="text-center font-weight-light mb-3">Send a text message!</h3>
+                    {# {{ form_widget(form) }} #}
+                    <div class="form-group">
+                        {# had to add empty errors array to remove label validation #}
+                        {{ form_label(form.recipient, null, {errors: []}) }}    
+                        {{ form_widget(form.recipient) }}
+                        {{ form_errors(form.recipient) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.text, null, {errors: []}) }}    
+                        {{ form_widget(form.text) }}
+                        {{ form_errors(form.text) }}
+                    </div>
+                    {# {{ form_row(form.text) }} #}
+                {{ form_end(form) }}
             </div>
         </div>
     </div>
