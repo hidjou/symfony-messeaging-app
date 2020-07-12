@@ -3,8 +3,12 @@
 {# {% block title %}Hello PageController!{% endblock %} #}
 
 {% block body %}
-    <div class="container pt-3">
-        <h1 class="text-center">Type a text message and send it now!</h1>
-        {{ form(form) }}
+    <div class="container">
+    <h1 class="text-center my-4 font-weight-light">Type a text message and send it now!</h1>
+        <div class="row justify-content-center">
+            <div class="col-4 card p-4">
+                {{ form(form) }}
+            </div>
+        </div>
     </div>
 {% endblock %}

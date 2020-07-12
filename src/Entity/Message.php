@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\MessageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=MessageRepository::class)
@@ -20,6 +21,7 @@ class Message
 
     /**
      * @ORM\Column(type="string", length=140)
+     * @Assert\NotBlank
      */
     private $text;
 
@@ -30,6 +32,13 @@ class Message
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min = 5,
+     *     max = 50,
+     *     minMessage = "The shortest phone number contains at least 5 digits (Solomon Islands)",
+     *     maxMessage = "The longest phone number contains 50 digits max"
+     * )
      */
     private $recipient;
 

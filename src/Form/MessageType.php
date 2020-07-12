@@ -16,7 +16,11 @@ class MessageType extends AbstractType
         $builder
             ->add('recipient')
             ->add('text')
-            ->add('Send', SubmitType::class)
+            ->add('Send', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-success w-100'
+                ]
+            ])
         ;
     }
 
