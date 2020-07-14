@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=MessageRepository::class)
  * @ORM\Table(name="messages")
+ * @ORM\HasLifecycleCallbacks
  */
 class Message
 {
@@ -18,6 +19,11 @@ class Message
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $sid;
 
     /**
      * @ORM\Column(type="string", length=140)
@@ -32,7 +38,7 @@ class Message
     private $text;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
     private $user_id;
 
@@ -50,15 +56,48 @@ class Message
      */
     private $recipient;
 
-    /**
-     * 0 waiting, 1 queued, 2 failed, 3 sent
-     * @ORM\Column(type="integer")
+     /**
+     * @ORM\Column(type="string", length=55)
      */
-    private $status = 0;
+    private $status;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $created_at;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+    */
+    public function updatedTimestamps(): void
+    {
+        $this->setUpdatedAt(new \DateTime('now'));    
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new \DateTime('now'));
+        }
+    }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getSid(): ?string
+    {
+        return $this->sid;
+    }
+
+    public function setSid(string $sid): self
+    {
+        $this->sid = $sid;
+
+        return $this;
     }
 
     public function getText(): ?string
@@ -97,14 +136,38 @@ class Message
         return $this;
     }
 
-    public function getStatus(): ?int
+    public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    public function setStatus(int $status): self
+    public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }

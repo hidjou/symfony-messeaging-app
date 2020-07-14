@@ -45,22 +45,26 @@ class PageController extends AbstractController
             // Accessing .env vars with '$_ENV()' as I couldnt find the equivalent in Symfony quickly haha
             $twilio = new TwilioClient($_ENV['TWILIO_SID'], $_ENV['TWILIO_AUTH_TOKEN']);
 
+            // TODO: Handle errors
+            $newMessage = $twilio->messages->create(
+                // the number you'd like to send the message to
+                // +447591339388
+                $message->getRecipient(),
+                [
+                    // A Twilio phone number you purchased at twilio.com/console
+                    // TODO: Get verified numbers from DB
+                    "from" => "+17205839384",
+                    // the body of the text message you"d like to send
+                    "body" => $message->getText()
+                ]
+            );
+
+            $message->setSid($newMessage->sid);
+            $message->setStatus($newMessage->status);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($message);
             $em->flush();
-
-            // $message = $twilio->messages->create(
-            //     // the number you'd like to send the message to
-            //     // +447591339388
-            //     $message->getRecipient(),
-            //     [
-            //         // A Twilio phone number you purchased at twilio.com/console
-            //         // TODO: Get verified numbers from DB
-            //         "from" => "+17205839384",
-            //         // the body of the text message you"d like to send
-            //         "body" => $message->getText()
-            //     ]
-            // );
 
             return $this->redirectToRoute('page.success');
         }
