@@ -29,7 +29,8 @@
         "symfony/twig-pack": "*",
         "symfony/validator": "5.1.*",
         "symfony/web-link": "5.1.*",
-        "symfony/yaml": "5.1.*"
+        "symfony/yaml": "5.1.*",
+        "twilio/sdk": "^6.9"
     },
     "require-dev": {
         "symfony/debug-pack": "*",
