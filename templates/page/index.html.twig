@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{# {% block title %}Hello PageController!{% endblock %} #}
+{% block title %}Send a message!{% endblock %}
 
 {% block body %}
     <div class="container">
-    <h1 class="text-center my-4 font-weight-normal">MSGME</h1>
+    <h1 class="text-center my-4 font-weight-normal" id="pageTitle">MSGME</h1>
         <div class="row justify-content-center">
             <div class="col-4 card p-4">
                 {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}

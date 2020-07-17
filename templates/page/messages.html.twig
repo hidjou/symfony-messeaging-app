@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Messages{% endblock %}
+
+{% block body %}
+    <div class="container">
+    <h1 class="text-center my-4 font-weight-normal" id="pageTitle">My Messages</h1>
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Text</th>
+                        <th scope="col">Recipient</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for message in messages %}
+                        <tr>
+                            <td>{{ message.text }}</td>
+                            <td>{{ message.recipient }}</td>
+                            <td>{{ message.status }}</td>
+                            <td>{{ message.created_at|date("Y-m-d H:i:s") }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

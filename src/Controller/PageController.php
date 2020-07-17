@@ -11,6 +11,7 @@ use Twilio\Rest\Client as TwilioClient;
 
 use App\Entity\Message;
 use App\Form\MessageType;
+use App\Repository\MessageRepository;
 
 /**
  * @Route("/", name="page.")
@@ -84,30 +85,23 @@ class PageController extends AbstractController
     }
 
     /**
-     * TODO: Remove this
-     * Test route
-     * @Route("/test", name="test")
+     * Messages page where user can see the messages they sent
+     * @Route("/messages", name="messages")
      */
-    public function test(): Response
+    public function messages(MessageRepository $messageRepository) : Response
     {
-        // Accessing .env vars with '$_ENV()' as I couldnt find the equivalent in Symfony quickly haha
-        $twilio = new TwilioClient($_ENV['TWILIO_SID'], $_ENV['TWILIO_AUTH_TOKEN']);
+        $user = $this->getUser();
 
-        $message = $twilio->messages->create(
-            // the number you'd like to send the message to
-            // +447591339388
-            "+447459188428",
-            [
-                // A Twilio phone number you purchased at twilio.com/console
-                "from" => "+17205839384",
-                // the body of the text message you"d like to send
-                "body" => "Hi Ahmed!"
-            ]
+        $messages = $messageRepository->findBy(
+            ['user_id' => $user->getId()],
+            ['created_at' => 'DESC']
         );
 
-        dump($message);
-        die;
+        
 
-        return new Response("<h1>" . $_ENV['APP_NAME'] . "</h1>");
+        // TODO: Get user messages
+        return $this->render('page/messages.html.twig', [
+            'messages' => $messages
+        ]);
     }
 }

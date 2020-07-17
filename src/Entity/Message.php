@@ -53,6 +53,10 @@ class Message
      *     minMessage = "The shortest phone number contains at least 5 digits (Solomon Islands)",
      *     maxMessage = "The longest phone number contains 50 digits max"
      * )
+     * @Assert\Regex(
+     *     pattern="/^[0-9+]+$/",
+     *     message="Number must only contains numbers or '+' sign"
+     * )
      */
     private $recipient;
 
@@ -148,7 +152,7 @@ class Message
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreated_At(): ?\DateTimeInterface
     {
         return $this->created_at;
     }
@@ -160,7 +164,7 @@ class Message
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getUpdated_At(): ?\DateTimeInterface
     {
         return $this->updated_at;
     }
